@@ -202,7 +202,7 @@ vec<2,T> operator*(const T& scalar, const vec<2,T>& vector)
 }
 
 template <typename T>
-vec<2,T> dot(const vec<2,T>& lhs, const vec<2,T>& rhs)
+T dot(const vec<2,T>& lhs, const vec<2,T>& rhs)
 {
 	return lhs.dot(rhs);
 }

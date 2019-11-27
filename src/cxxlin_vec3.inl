@@ -226,7 +226,7 @@ vec<3,T> operator*(const T& scalar, const vec<3,T>& vector)
 }
 
 template <typename T>
-vec<3,T> dot(const vec<3,T>& lhs, const vec<3,T>& rhs)
+T dot(const vec<3,T>& lhs, const vec<3,T>& rhs)
 {
 	return lhs.dot(rhs);
 }
