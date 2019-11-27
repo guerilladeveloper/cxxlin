@@ -15,7 +15,7 @@ vec<2,T>::vec(const T& val)
 
 template <typename T>
 vec<2,T>::vec()
-	:vec<2,T>(T(0)) 
+	:vec(T(0)) 
 {
 }
 
@@ -24,6 +24,31 @@ vec<2,T>::vec(const vec<2,T>& other)
 {
 	x=other.x;
 	y=other.y;
+}
+
+template <typename T>
+template <uint32 D>
+vec<2,T>::vec(const vec<D,T>& other)
+{
+	if (D<2)
+	{
+		for (uint32 i=0;i<D;++i)
+		{
+			*(&x+i)=other[i];
+		}
+		for (uint32 i=D;i<2;++i)
+		{
+			*(&x+i)=T(0);
+		}
+		*(&x+1)=T(1);
+	}
+	else
+	{
+		for (uint32 i=0;i<2;++i)
+		{
+			*(&x+i)=other[i];
+		}
+	}
 }
 
 template <typename T>
@@ -119,6 +144,14 @@ T& vec<2,T>::operator[](uint32 index)
 	ASSERT(index>=0&&index<2);
 	return *(&x+index);
 }
+
+template <typename T>
+const T& vec<2,T>::operator[](uint32 index) const
+{
+	ASSERT(index>=0&&index<2);
+	return *(&x+index);
+}
+
 
 template <typename T>
 T vec<2,T>::dot(const vec<2,T>& rhs)

@@ -1,4 +1,4 @@
-#ifndef _VECTOR_H_
+#ifndef _CXXLIN_VEC_H_
 
 #include <cmath>
 #include "cxxlin_defines.h"
@@ -12,6 +12,8 @@ struct vec
 	vec(const T& val);
 	vec();
 	vec(const vec& other);
+	template <uint32 D2>
+	vec(const vec<D2,T>& other);
 	vec operator+(const vec& rhs);
 	vec operator-(const vec& rhs);
 	vec operator-();
@@ -26,6 +28,7 @@ struct vec
 	vec& operator/=(const T& scalar);
 
 	T& operator[](uint32 index);
+	const T& operator[](uint32 index) const;
 
 	T dot(const vec& rhs);
 
@@ -45,5 +48,5 @@ T dot(const vec<D,T>& lhs,const vec<D,T>& rhs);
 
 #include "cxxlin_vec.inl"
 
-#define _VECTOR_H_
+#define _CXXLIN_VEC_H_
 #endif

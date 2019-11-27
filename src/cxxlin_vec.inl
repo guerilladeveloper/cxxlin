@@ -33,6 +33,31 @@ vec<D,T>::vec(const vec<D,T>& other)
 }
 
 template <uint32 D,typename T>
+template <uint32 D2>
+vec<D,T>::vec(const vec<D2,T>& other)
+{
+	if (D>=D2)
+	{
+		for (uint32 i=0;i<D2;++i)
+		{
+			this->operator[](i)=other[i];
+		}
+		for (uint32 i=D2;i<D;++i)
+		{
+			this->operator[](i)=T(0);
+		}
+		this->operator[](D-1)=T(1);
+	}
+	else
+	{
+		for (uint32 i=0;i<D;++i)
+		{
+			this->operator[](i)=other[i];
+		}
+	}
+}
+		
+template <uint32 D,typename T>
 vec<D,T> vec<D,T>::operator+(const vec<D,T>& rhs)
 {
 	vec<D,T> result={};
@@ -166,6 +191,14 @@ vec<D,T>& vec<D,T>::operator/=(const T& scalar)
 
 template <uint32 D,typename T>
 T& vec<D,T>::operator[](uint32 index)
+{
+	ASSERT(index>=0&&index<D);
+	return e[index];
+}
+
+
+template <uint32 D,typename T>
+const T& vec<D,T>::operator[](uint32 index) const
 {
 	ASSERT(index>=0&&index<D);
 	return e[index];

@@ -14,6 +14,8 @@ struct vec<4,T>
 	vec(const T& val);
 	vec();
 	vec(const vec& other);
+	template <uint32 D>
+	vec(const vec<D,T>& other);
 	vec operator+(const vec& rhs);
 	vec operator-(const vec& rhs);
 	vec operator-();
@@ -28,6 +30,7 @@ struct vec<4,T>
 	vec& operator/=(const T& scalar);
 
 	T& operator[](uint32 index);
+	const T& operator[](uint32 index) const;
 
 	T dot(const vec& rhs);
 
