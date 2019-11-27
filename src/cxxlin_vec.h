@@ -30,14 +30,14 @@ struct vec
 	T& operator[](uint32 index);
 	const T& operator[](uint32 index) const;
 
-	T dot(const vec& rhs);
+	T dot(const vec& rhs) const;
 
-	real32 len_sq();
-	real32 len_sq32();
-	real32 len();
-	real32 len32();
-	real64 len_sq64();
-	real64 len64();
+	real32 len_sq() const;
+	real32 len_sq32() const;
+	real32 len() const;
+	real32 len32() const;
+	real64 len_sq64() const;
+	real64 len64() const;
 };
 
 template <uint32 D, typename T>

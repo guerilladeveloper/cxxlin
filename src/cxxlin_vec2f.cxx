@@ -26,32 +26,6 @@ vec<2,real32>::vec(const vec<2,real32>& other)
 	y=other.y;
 }
 
-
-template <uint32 D>
-vec<2,real32>::vec(const vec<D,real32>& other)
-{
-	if (D<2)
-	{
-		for (uint32 i=0;i<D;++i)
-		{
-			*(&x+i)=other[i];
-		}
-		for (uint32 i=D;i<2;++i)
-		{
-			*(&x+i)=real32(0);
-		}
-		*(&x+1)=real32(1);
-	}
-	else
-	{
-		for (uint32 i=0;i<2;++i)
-		{
-			*(&x+i)=other[i];
-		}
-	}
-}
-
-
 vec<2,real32> vec<2,real32>::operator+(const vec<2,real32>& rhs)
 {
 	return vec<2,real32>(x+rhs.x,y+rhs.y);

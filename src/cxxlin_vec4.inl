@@ -119,13 +119,10 @@ vec<4,T>& vec<4,T>::operator=(const vec<4,T>& rhs)
 template <typename T>
 vec<4,T>& vec<4,T>::operator+=(const vec<4,T>& rhs)
 {
-	if (this!=&rhs)
-	{
-		x+=rhs.x;
-		y+=rhs.y;
-		z+=rhs.z;
-		w+=rhs.w;
-	}
+	x+=rhs.x;
+	y+=rhs.y;
+	z+=rhs.z;
+	w+=rhs.w;
 
 	return *this;
 }

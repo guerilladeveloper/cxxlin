@@ -88,12 +88,9 @@ vec<3,real32>& vec<3,real32>::operator=(const vec<3,real32>& rhs)
 
 vec<3,real32>& vec<3,real32>::operator+=(const vec<3,real32>& rhs)
 {
-	if (this!=&rhs)
-	{
-		x+=rhs.x;
-		y+=rhs.y;
-		z+=rhs.z;
-	}
+	x+=rhs.x;
+	y+=rhs.y;
+	z+=rhs.z;
 
 	return *this;
 }

@@ -205,7 +205,7 @@ const T& vec<D,T>::operator[](uint32 index) const
 }
 
 template <uint32 D,typename T>
-T vec<D,T>::dot(const vec<D,T>& rhs)
+T vec<D,T>::dot(const vec<D,T>& rhs) const
 {
 	T result=T(0);
 	for (uint32 i=0;i<D;++i)
@@ -216,37 +216,37 @@ T vec<D,T>::dot(const vec<D,T>& rhs)
 }
 
 template <uint32 D,typename T>
-real32 vec<D,T>::len_sq()
+real32 vec<D,T>::len_sq() const
 {
 	return (real32)dot(*this);
 }
 
 template <uint32 D,typename T>
-real32 vec<D,T>::len_sq32()
+real32 vec<D,T>::len_sq32() const
 {
 	return len_sq();
 }
 
 template <uint32 D,typename T>
-real32 vec<D,T>::len()
+real32 vec<D,T>::len() const
 {
 	return (real32)sqrt((real64)len_sq32());
 }
 
 template <uint32 D,typename T>
-real32 vec<D,T>::len32()
+real32 vec<D,T>::len32() const
 {
 	return len();
 }
 
 template <uint32 D,typename T>
-real64 vec<D,T>::len_sq64()
+real64 vec<D,T>::len_sq64() const
 {
 	return (real64)dot(*this);
 }
 
 template <uint32 D,typename T>
-real64 vec<D,T>::len64()
+real64 vec<D,T>::len64() const
 {
 	return (real64)sqrt(len_sq64());
 }
