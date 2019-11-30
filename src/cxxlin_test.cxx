@@ -18,10 +18,19 @@ int main(int argc,char* argv[])
 
 	vec<2,uint32> v2u;
 
-	vec<2,real32> v2f;
+	vec<2,real32> v2f=vec<2,real32>(3.14);
+	vec<2,real32> v2f2=vec<2,real32>(5.0f,2.1f);
 	vec<5,uint32> v5u;
 
-	printf("%f,%f,%f,%f\n",hom[0],hom[1],hom[2],hom[3]);
+	printf("%f,%f\n",v2f[0],v2f[1]);
 
+	vec<2,real32*> ptrVec=vec<2,real32*>(&v2f.x,&v2f.y);
+	*ptrVec[0]=1.0f;
+
+	printf("%f,%f\n",v2f[0],v2f[1]);
+	
+	v2f=v2f+v2f2;
+
+	printf("%f,%f\n",*ptrVec[0],*ptrVec[1]);
 	return 0;
 }
