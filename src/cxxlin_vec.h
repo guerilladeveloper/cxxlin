@@ -14,13 +14,13 @@ struct vec
 	vec(const vec& other);
 	template <uint32 D2>
 	vec(const vec<D2,T>& other);
-	vec operator+(const vec& rhs);
-	vec operator-(const vec& rhs);
-	vec operator-();
-	vec operator*(const T& scalar);
-	vec operator/(const T& scalar);
-	bool32 operator==(const vec& rhs);
-	bool32 operator!=(const vec& rhs);
+	vec operator+(const vec& rhs) const;
+	vec operator-(const vec& rhs) const;
+	vec operator-() const;
+	vec operator*(const T& scalar) const;
+	vec operator/(const T& scalar) const;
+	bool32 operator==(const vec& rhs) const;
+	bool32 operator!=(const vec& rhs) const;
 	vec& operator=(const vec& rhs);
 	vec& operator-=(const vec& rhs);
 	vec& operator+=(const vec& rhs);

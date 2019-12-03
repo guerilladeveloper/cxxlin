@@ -2,8 +2,6 @@
 #include "cxxlin_vec2.h"
 #include "cxxlin_vec3.h"
 #include "cxxlin_vecf.h"
-//#include "cxxlin_vecptr.h"
-//#include "cxxlin_vecref.h"
 #include <stdio.h>
 
 #include "cxxlin_vec2f.cxx"
@@ -38,7 +36,7 @@ int main(int argc,char* argv[])
 
 	printf("%f,%f\n",*ptrVec[0],*ptrVec[1]);
 
-	vec<4,uint32&> uPtrVec=vec<4,uint32*>(v4u.e);
+	vec<4,uint32*> uPtrVec=vec<4,uint32*>(v4u.e);
 
 	*uPtrVec[0]=50;
 	printf("%d,%d\n",v4u[0],v4u[1]);

@@ -1,11 +1,6 @@
 #ifndef _CXXLIN_VEC2PTR_H_
 
-template <typename T>
-struct <2,T*>
-{
-	T* x;
-	T* y;
-};
+#include "cxxlin_vec2ptr.inl"
 
 #define _CXXLIN_VEC2PTR_H_
 #endif
