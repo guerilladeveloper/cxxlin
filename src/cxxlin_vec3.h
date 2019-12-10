@@ -12,7 +12,7 @@ struct vec<3,T>
 	T z;
 
 	explicit vec(const T elements[3]);
-	vec(const T& val);
+	explicit vec(const T& val);
 	vec();
 	vec(const T& x,const T& y,const T& z);
 	vec(const vec& other);
@@ -32,8 +32,6 @@ struct vec<3,T>
 	vec& operator*=(const T& scalar);
 	vec& operator/=(const T& scalar);
 
-	operator T() const;
-	operator T&();
 	T& operator[](uint32 index);
 	const T& operator[](uint32 index) const;
 

@@ -31,8 +31,6 @@ struct vec<2,real32>
 	vec& operator*=(const real32& scalar);
 	vec& operator/=(const real32& scalar);
 
-	operator real32() const;
-	operator real32&();
 	real32& operator[](uint32 index);
 	const real32& operator[](uint32 index) const;
 

@@ -11,7 +11,7 @@ struct vec<2,T>
 	T y;
 
 	explicit vec(const T elements[2]);
-	vec(const T& val);
+	explicit vec(const T& val);
 	vec();
 	vec(const T& x,const T& y);
 	vec(const vec& other);
@@ -31,8 +31,6 @@ struct vec<2,T>
 	vec& operator*=(const T& scalar);
 	vec& operator/=(const T& scalar);
 
-	operator T() const;
-	operator T&();
 	T& operator[](uint32 index);
 	const T& operator[](uint32 index) const;
 

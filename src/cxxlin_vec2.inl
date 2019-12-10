@@ -1,4 +1,3 @@
-
 template <typename T>
 vec<2,T>::vec(const T elements[2])
 {
