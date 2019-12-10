@@ -7,7 +7,6 @@
 #include "cxxlin_vec4.h"
 
 #include "cxxlin_vec2f.h"
-#include "cxxlin_vec2fptr.h"
 #include "cxxlin_vec3f.h"
 #include "cxxlin_vec4f.h"
 
