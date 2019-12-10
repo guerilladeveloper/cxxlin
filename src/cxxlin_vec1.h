@@ -1,21 +1,14 @@
-#ifndef _CXXLIN_VEC4_H_
-
-#include "cxxlin_vec.h"
+#ifndef _CXXLIN_VEC1_H_
 
 template <typename T>
-struct vec<4,T>
+struct vec<1,T>
 {
-	static const uint32 DIM=4;
-
+	static const uint32 DIM=1;
 	T x;
-	T y;
-	T z;
-	T w;
 
-	explicit vec(const T elements[4]);
+	explicit vec(const T element[1]);
 	vec(const T& val);
 	vec();
-	vec(const T& x,const T& y,const T& z,const T& w);
 	vec(const vec& other);
 	template <uint32 D>
 	vec(const vec<D,T>& other);
@@ -42,29 +35,22 @@ struct vec<4,T>
 };
 
 template <typename T>
-static const vec<4,T> VEC4_ONE=vec<4,T>(T(1));
+static const vec<1,T> VEC1_ONE=vec<1,T>(T(1));
 template <typename T>
-static const vec<4,T> VEC4_XAXIS=vec<4,T>(T(1),T(0),T(0),T(0));
-template <typename T>
-static const vec<4,T> VEC4_YAXIS=vec<4,T>(T(0),T(1),T(0),T(0));
-template <typename T>
-static const vec<4,T> VEC4_ZAXIS=vec<4,T>(T(0),T(0),T(1),T(0));
-template <typename T>
-static const vec<4,T> VEC4_WAXIS=vec<4,T>(T(0),T(0),T(0),T(1));
+static const vec<1,T> VEC1_XAXIS=vec<1,T>(T(1));
 
 template <typename T>
-vec<4,T> operator*(const T& scalar,const vec<4,T>& vector);
+vec<1,T> operator*(const T& scalar,const vec<1,T>& vector);
 
 template <typename T>
-T dot(const vec<4,T>& lhs,const vec<4,T>& rhs);
+T dot(const vec<1,T>& lhs,const vec<1,T>& rhs);
 
-
-#include "cxxlin_vec4.inl"
+#include "cxxlin_vec1.inl"
 
 template <typename T>
-using vec4=vec<4,T>;
+using vec1=vec<1,T>;
 
-typedef vec4<real32> vec4f;
+typedef vec<1,real32> vec1f;
 
-#define _CXXLIN_VEC4_H_
+#define _CXXLIN_VEC1_H_
 #endif

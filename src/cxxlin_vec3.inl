@@ -1,10 +1,10 @@
 
 template <typename T>
-vec<3,T>::vec(const T& x,const T& y,const T& z)
+vec<3,T>::vec(const T elements[3])
 {
-	this->x=x;
-	this->y=y;
-	this->z=z;
+	x=elements[0];
+	y=elements[1];
+	z=elements[2];
 }
 
 template <typename T>
@@ -17,9 +17,7 @@ vec<3,T>::vec(const T& val)
 
 template <typename T>
 vec<3,T>::vec()
-	:vec(T(0)) 
-{
-}
+	: vec(T(0)) { }
 
 template <typename T>
 vec<3,T>::vec(const vec<3,T>& other)
@@ -30,206 +28,203 @@ vec<3,T>::vec(const vec<3,T>& other)
 }
 
 template <typename T>
+vec<3,T>::vec(const T& x,const T& y,const T& z)
+{
+	this->x=x;
+	this->y=y;
+	this->z=z;
+}
+
+template <typename T>
 template <uint32 D>
 vec<3,T>::vec(const vec<D,T>& other)
 {
-	if (D<3)
+	if (D>=3)
 	{
-		for (uint32 i=0;i<D;++i)
-		{
-			(*this)[i]=other[i];
-		}
-		for (uint32 i=D;i<3;++i)
-		{
-			(*this)[i]=T(0);
-		}
-		(*this)[2]=T(1);
+		x=other[0];
+		y=other[1];
+		z=other[2];
 	}
-	else
+	else if (D==2)
 	{
-		for (uint32 i=0;i<3;++i)
-		{
-			(*this)[i]=other[i];
-		}
+		x=other[0];
+		y=other[1];
+		z=T(1);
+	}
+	else if (D==1)
+	{
+		x=other[0];
+		y=T(0);
+		z=T(1);
 	}
 }
 
 template <typename T>
-vec<3,T> vec<3,T>::operator+(const vec<3,T>& rhs)
+vec<3,T> vec<3,T>::operator+(const vec<3,T>& rhs) const
 {
 	return vec<3,T>(x+rhs.x,y+rhs.y,z+rhs.z);
 }
 
 template <typename T>
-vec<3,T> vec<3,T>::operator-(const vec<3,T>& rhs)
+vec<3,T> vec<3,T>::operator-(const vec<3,T>& rhs) const
 {
 	return vec<3,T>(x-rhs.x,y-rhs.y,z-rhs.z);
 }
 
-
 template <typename T>
-vec<3,T> vec<3,T>::operator-()
+vec<3,T> vec<3,T>::operator-() const
 {
 	return vec<3,T>(-x,-y,-z);
 }
 
 template <typename T>
-vec<3,T> vec<3,T>::operator*(const T& scalar)
+vec<3,T> vec<3,T>::operator*(const T& scalar) const
 {
 	return vec<3,T>(x*scalar,y*scalar,z*scalar);
 }
 
 template <typename T>
-vec<3,T> vec<3,T>::operator/(const T& scalar)
+vec<3,T> vec<3,T>::operator/(const T& scalar) const
 {
 	return vec<3,T>(x/scalar,y/scalar,z/scalar);
-
 }
 
 template <typename T>
-bool32 vec<3,T>::operator==(const vec<3,T>& rhs)
+bool32 vec<3,T>::operator==(const vec<3,T>& rhs) const
 {
-	return (this==&rhs)||(x==rhs.x&&y==rhs.y&&z==rhs.z);
+	return this==&rhs||
+		(x==rhs.x&&y==rhs.y&&z==rhs.z);
 }
 
 template <typename T>
-bool32 vec<3,T>::operator!=(const vec<3,T>& rhs)
+bool32 vec<3,T>::operator!=(const vec<3,T>& rhs) const
 {
 	return !(*this==rhs);
 }
 
-
 template <typename T>
 vec<3,T>& vec<3,T>::operator=(const vec<3,T>& rhs)
 {
+
 	if (this!=&rhs)
 	{
 		x=rhs.x;
 		y=rhs.y;
 		z=rhs.z;
 	}
-
-	return *this;
-}
-
-template <typename T>
-vec<3,T>& vec<3,T>::operator+=(const vec<3,T>& rhs)
-{
-	x+=rhs.x;
-	y+=rhs.y;
-	z+=rhs.z;
-
 	return *this;
 }
 
 template <typename T>
 vec<3,T>& vec<3,T>::operator-=(const vec<3,T>& rhs)
 {
-	x-=rhs.x;
-	y-=rhs.y;
-	z-=rhs.z;
+
+	if (this!=&rhs)
+	{
+		x=x-rhs.x;
+		y=y-rhs.y;
+		z=z-rhs.z;
+	}
+	return *this;
+}
+
+template <typename T>
+vec<3,T>& vec<3,T>::operator+=(const vec<3,T>& rhs)
+{
+
+	if (this!=&rhs)
+	{
+		x=x+rhs.x;
+		y=y+rhs.y;
+		z=z+rhs.z;
+	}
 	return *this;
 }
 
 template <typename T>
 vec<3,T>& vec<3,T>::operator*=(const T& scalar)
 {
-	x*=scalar;
-	y*=scalar;
-	z*=scalar;
-
+	x=x*scalar;
+	y=y*scalar;
+	z=z*scalar;
 	return *this;
 }
 
 template <typename T>
 vec<3,T>& vec<3,T>::operator/=(const T& scalar)
 {
-	x/=scalar;
-	y/=scalar;
-	z/=scalar;
-
+	x=x/scalar;
+	y=y/scalar;
+	z=z/scalar;
 	return *this;
 }
 
 template <typename T>
 T& vec<3,T>::operator[](uint32 index)
 {
-	ASSERT(index>=0&&index<3);
-	return *(&x+index);
+	ASSERT(index==0||index==1||index==2);
+	if (index==0)
+	{
+		return x;
+	}
+	else if (index==1)
+	{
+		return y;
+	}
+	else
+	{
+		return z;
+	}
 }
 
 template <typename T>
 const T& vec<3,T>::operator[](uint32 index) const
 {
-	ASSERT(index>=0&&index<3);
-	return *(&x+index);
+	ASSERT(index==0||index==1||index==2);
+	if (index==0)
+	{
+		return x;
+	}
+	else if (index==1)
+	{
+		return y;
+	}
+	else
+	{
+		return z;
+	}
 }
 
 
 template <typename T>
-T vec<3,T>::dot(const vec<3,T>& rhs)
+T vec<3,T>::dot(const vec<3,T>& rhs) const
 {
 	return x*rhs.x+y*rhs.y+z*rhs.z;
 }
 
 template <typename T>
-vec<3,T> vec<3,T>::cross(const vec<3,T>& rhs)
+vec<3,T> vec<3,T>::cross(const vec<3,T>& rhs) const
 {
-	return vec<3,T>(y*rhs.z-z*rhs.y,
+	return vec<3,T>(
+			y*rhs.z-z*rhs.y,
 			x*rhs.z-z*rhs.x,
 			x*rhs.y-y*rhs.x);
 }
+
 template <typename T>
-real32 vec<3,T>::len_sq()
+vec<3,T> operator*(const T& scalar,const vec<3,T>& vector)
 {
-	return (real32)dot(*this);
+	return vec<3,T>(scalar*vector.x,scalar*vector.y,scalar*vector.z);
 }
 
 template <typename T>
-real32 vec<3,T>::len_sq32()
-{
-	return len_sq();
-}
-
-template <typename T>
-real32 vec<3,T>::len()
-{
-	return (real32)sqrt((real64)len_sq32());
-}
-
-template <typename T>
-real32 vec<3,T>::len32()
-{
-	return len();
-}
-
-template <typename T>
-real64 vec<3,T>::len_sq64()
-{
-	return (real64)dot(*this);
-}
-
-template <typename T>
-real64 vec<3,T>::len64()
-{
-	return (real64)sqrt(len_sq64());
-}
-
-template <typename T>
-vec<3,T> operator*(const T& scalar, const vec<3,T>& vector)
-{
-	return vec<3,T>(scalar*vector.x,scalar*vector.y,
-			scalar*vector.z);
-}
-
-template <typename T>
-T dot(const vec<3,T>& lhs, const vec<3,T>& rhs)
+T dot(const vec<3,T>& lhs,const vec<3,T>& rhs)
 {
 	return lhs.dot(rhs);
 }
 
 template <typename T>
-vec<3,T> cross(const vec<3,T>& lhs, const vec<3,T>& rhs)
+vec<3,T> cross(const vec<3,T>& lhs,const vec<3,T>& rhs)
 {
 	return lhs.cross(rhs);
 }

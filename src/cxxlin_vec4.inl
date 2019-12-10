@@ -1,11 +1,11 @@
 
 template <typename T>
-vec<4,T>::vec(const T& x,const T& y,const T& z,const T& w)
+vec<4,T>::vec(const T elements[4])
 {
-	this->x=x;
-	this->y=y;
-	this->z=z;
-	this->w=w;
+	x=elements[0];
+	y=elements[1];
+	z=elements[2];
+	w=elements[4];
 }
 
 template <typename T>
@@ -19,9 +19,7 @@ vec<4,T>::vec(const T& val)
 
 template <typename T>
 vec<4,T>::vec()
-	:vec(T(0)) 
-{
-}
+	: vec(T(0)) { }
 
 template <typename T>
 vec<4,T>::vec(const vec<4,T>& other)
@@ -33,78 +31,95 @@ vec<4,T>::vec(const vec<4,T>& other)
 }
 
 template <typename T>
+vec<4,T>::vec(const T& x,const T& y,const T& z,const T& w)
+{
+	this->x=x;
+	this->y=y;
+	this->z=z;
+	this->w=w;
+}
+
+template <typename T>
 template <uint32 D>
 vec<4,T>::vec(const vec<D,T>& other)
 {
-	if (D<4)
+	if (D>=4)
 	{
-		for (uint32 i=0;i<D;++i)
-		{
-			(*this)[i]=other[i];
-		}
-		for (uint32 i=D;i<4;++i)
-		{
-			(*this)[i]=T(0);
-		}
-		(*this)[3]=T(1);
+		x=other[0];
+		y=other[1];
+		z=other[2];
+		w=other[3];
 	}
-	else
+	else if (D==3)
 	{
-		for (uint32 i=0;i<4;++i)
-		{
-			(*this)[i]=other[i];
-		}
+		x=other[0];
+		y=other[1];
+		z=other[2];
+		w=T(1);
+	}
+	else if (D==2)
+	{
+		x=other[0];
+		y=other[1];
+		z=T(0);
+		w=T(1);
+	}
+	else if (D==1)
+	{
+		x=other[0];
+		y=T(0);
+		z=T(0);
+		w=T(1);
 	}
 }
+
 template <typename T>
-vec<4,T> vec<4,T>::operator+(const vec<4,T>& rhs)
+vec<4,T> vec<4,T>::operator+(const vec<4,T>& rhs) const
 {
 	return vec<4,T>(x+rhs.x,y+rhs.y,z+rhs.z,w+rhs.w);
 }
 
 template <typename T>
-vec<4,T> vec<4,T>::operator-(const vec<4,T>& rhs)
+vec<4,T> vec<4,T>::operator-(const vec<4,T>& rhs) const
 {
 	return vec<4,T>(x-rhs.x,y-rhs.y,z-rhs.z,w-rhs.w);
 }
 
-
 template <typename T>
-vec<4,T> vec<4,T>::operator-()
+vec<4,T> vec<4,T>::operator-() const
 {
 	return vec<4,T>(-x,-y,-z,-w);
 }
 
 template <typename T>
-vec<4,T> vec<4,T>::operator*(const T& scalar)
+vec<4,T> vec<4,T>::operator*(const T& scalar) const
 {
 	return vec<4,T>(x*scalar,y*scalar,z*scalar,w*scalar);
 }
 
 template <typename T>
-vec<4,T> vec<4,T>::operator/(const T& scalar)
+vec<4,T> vec<4,T>::operator/(const T& scalar) const
 {
 	return vec<4,T>(x/scalar,y/scalar,z/scalar,w/scalar);
-
 }
 
 template <typename T>
-bool32 vec<4,T>::operator==(const vec<4,T>& rhs)
+bool32 vec<4,T>::operator==(const vec<4,T>& rhs) const
 {
-	return (this==&vector)||(x==rhs.x&&y==rhs.y&&z==rhs.z&&
-			w==rhs.w);
+	return this==&rhs||
+		(x==rhs.x&&y==rhs.y&&z==rhs.z,&&w==rhs.w);
 }
 
 template <typename T>
-bool32 vec<4,T>::operator!=(const vec<4,T>& rhs)
+bool32 vec<4,T>::operator!=(const vec<4,T>& rhs) const
 {
 	return !(*this==rhs);
 }
 
-
 template <typename T>
 vec<4,T>& vec<4,T>::operator=(const vec<4,T>& rhs)
 {
+
 	if (this!=&rhs)
 	{
 		x=rhs.x;
@@ -112,128 +127,117 @@ vec<4,T>& vec<4,T>::operator=(const vec<4,T>& rhs)
 		z=rhs.z;
 		w=rhs.w;
 	}
-
-	return *this;
-}
-
-template <typename T>
-vec<4,T>& vec<4,T>::operator+=(const vec<4,T>& rhs)
-{
-	x+=rhs.x;
-	y+=rhs.y;
-	z+=rhs.z;
-	w+=rhs.w;
-
 	return *this;
 }
 
 template <typename T>
 vec<4,T>& vec<4,T>::operator-=(const vec<4,T>& rhs)
 {
+
 	if (this!=&rhs)
 	{
-		x-=rhs.x;
-		y-=rhs.y;
-		z-=rhs.z;
-		w-=rhs.w;
+		x=x-rhs.x;
+		y=y-rhs.y;
+		z=z-rhs.z;
+		w=w-rhs.w;
 	}
+	return *this;
+}
 
+template <typename T>
+vec<4,T>& vec<4,T>::operator+=(const vec<4,T>& rhs)
+{
+
+	if (this!=&rhs)
+	{
+		x=x+rhs.x;
+		y=y+rhs.y;
+		z=z+rhs.z;
+		w=w+rhs.w;
+	}
 	return *this;
 }
 
 template <typename T>
 vec<4,T>& vec<4,T>::operator*=(const T& scalar)
 {
-	if (this!=&rhs)
-	{
-		x*=scalar;
-		y*=scalar;
-		z*=scalar;
-		w*=scalar;
-	}
-
+	x=x*scalar;
+	y=y*scalar;
+	z=z*scalar;
+	w=w*scalar;
 	return *this;
 }
 
 template <typename T>
 vec<4,T>& vec<4,T>::operator/=(const T& scalar)
 {
-	if (this!=&rhs)
-	{
-		x/=scalar;
-		y/=scalar;
-		z/=scalar;
-		w/=scalar;
-	}
-
+	x=x/scalar;
+	y=y/scalar;
+	z=z/scalar;
+	w=w/scalar;
 	return *this;
 }
 
 template <typename T>
 T& vec<4,T>::operator[](uint32 index)
 {
-	ASSERT(index>=0&&index<4);
-	return *(&x+index);
+	ASSERT(index==0||index==1||index==2||index==3);
+	if (index==0)
+	{
+		return x;
+	}
+	else if (index==1)
+	{
+		return y;
+	}
+	else if (index==2)
+	{
+		return z;
+	}
+	else
+	{
+		return w;
+	}
 }
+
 template <typename T>
 const T& vec<4,T>::operator[](uint32 index) const
 {
-	ASSERT(index>=0&&index<4);
-	return *(&x+index);
+	ASSERT(index==0||index==1||index==2||index==3);
+	if (index==0)
+	{
+		return x;
+	}
+	else if (index==1)
+	{
+		return y;
+	}
+	else if (index==2)
+	{
+		return z;
+	}
+	else
+	{
+		return w;
+	}
 }
 
 
 template <typename T>
-T vec<4,T>::dot(const vec<4,T>& rhs)
+T vec<4,T>::dot(const vec<4,T>& rhs) const
 {
 	return x*rhs.x+y*rhs.y+z*rhs.z+w*rhs.w;
 }
 
 template <typename T>
-real32 vec<4,T>::len_sq()
-{
-	return (real32)dot(*this);
-}
-
-template <typename T>
-real32 vec<4,T>::len_sq32()
-{
-	return len_sq();
-}
-
-template <typename T>
-real32 vec<4,T>::len()
-{
-	return (real32)sqrt((real64)len_sq32());
-}
-
-template <typename T>
-real32 vec<4,T>::len32()
-{
-	return len();
-}
-
-template <typename T>
-real64 vec<4,T>::len_sq64()
-{
-	return (real64)dot(*this);
-}
-
-template <typename T>
-real64 vec<4,T>::len64()
-{
-	return (real64)sqrt(len_sq64());
-}
-
-template <typename T>
-vec<4,T> operator*(const T& scalar, const vec<4,T>& vector)
+vec<4,T> operator*(const T& scalar,const vec<4,T>& vector)
 {
 	return vec<4,T>(scalar*vector.x,scalar*vector.y,
 			scalar*vector.z,scalar*vector.w);
 }
 
 template <typename T>
-T dot(const vec<4,T>& lhs, const vec<4,T>& rhs)
+T dot(const vec<4,T>& lhs,const vec<4,T>& rhs)
 {
 	return lhs.dot(rhs);
 }

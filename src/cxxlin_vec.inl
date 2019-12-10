@@ -33,6 +33,16 @@ vec<D,T>::vec(const vec<D,T>& other)
 }
 
 template <uint32 D,typename T>
+vec<D,T>::vec(const vec<D-1,T>& other,T last)
+{
+	for (uint32 i=0;i<D-1;++i)
+	{
+		e[i]=other[i];
+	}
+	e[D-1]=last;
+}
+
+template <uint32 D,typename T>
 template <uint32 D2>
 vec<D,T>::vec(const vec<D2,T>& other)
 {
@@ -60,24 +70,18 @@ vec<D,T>::vec(const vec<D2,T>& other)
 template <uint32 D,typename T>
 vec<D,T> vec<D,T>::operator+(const vec<D,T>& rhs) const
 {
-	vec<D,T> result={};
-
-	for (uint32 i=0;i<D;++i)
-	{
-		result.e[i]=e[i]+rhs.e[i];
-	}
+	vec<D,T> result=vec<D,T>(
+			vec<D-1,T>(*this)+vec<D-1,T>(rhs),
+			rhs.e[D-1]+e[D-1]);
 	return result;
 }
 
 template <uint32 D,typename T>
 vec<D,T> vec<D,T>::operator-(const vec<D,T>& rhs) const
 {
-	vec<D,T> result={};
-
-	for (uint32 i=0;i<D;++i)
-	{
-		result.e[i]=e[i]-rhs.e[i];
-	}
+	vec<D,T> result=vec<D,T>(
+			vec<D-1,T>(*this)-vec<D-1,T>(rhs),
+			rhs.e[D-1]-e[D-1]);
 	return result;
 }
 
@@ -85,53 +89,26 @@ vec<D,T> vec<D,T>::operator-(const vec<D,T>& rhs) const
 template <uint32 D,typename T>
 vec<D,T> vec<D,T>::operator-() const
 {
-	vec<D,T> result={};
-	for (uint32 i=0;i<D;++i)
-	{
-		result.e[i]=-e[i];
-	}
-	return result;
+	return vec<D,T>(-vec<D-1,T>(*this),-e[D-1]);
 }
 
 template <uint32 D,typename T>
 vec<D,T> vec<D,T>::operator*(const T& scalar) const
 {
-	vec<D,T> result={};
-	for (uint32 i=0;i<D;++i)
-	{
-		result.e[i]=e[i]*scalar;
-	}
-	return result;
+	return vec<D,T>(vec<D-1,T>(*this)*scalar,e[D-1]*scalar);
 }
 
 template <uint32 D,typename T>
 vec<D,T> vec<D,T>::operator/(const T& scalar) const
 {
-	vec<D,T> result={};
-	for (uint32 i=0;i<D;++i)
-	{
-		result.e[i]=e[i]/scalar;
-	}
-	return result;
+	return vec<D,T>(vec<D-1,T>(*this)/scalar,e[D-1]/scalar);
 }
 
 template <uint32 D,typename T>
 bool32 vec<D,T>::operator==(const vec<D,T>& rhs) const
 {
-	bool32 result=1;
-
-	if (this!=&rhs)
-	{
-		for (uint32 i=0;i<D;++i)
-		{
-			if (e[i]!=rhs.e[i])
-			{
-				result=0;
-				break;
-			}
-		}
-	}
-	return result;
+	return vec<D-1,T>(*this)==vec<D-1,T>(rhs)&&
+		e[0]==rhs.e[0];
 }
 
 template <uint32 D,typename T>
@@ -213,59 +190,13 @@ const T& vec<D,T>::operator[](uint32 index) const
 template <uint32 D,typename T>
 T vec<D,T>::dot(const vec<D,T>& rhs) const
 {
-	T result=T(0);
-	for (uint32 i=0;i<D;++i)
-	{
-		result=result+e[i]*rhs.e[i];
-	}
-	return result;
-}
-
-template <uint32 D,typename T>
-real32 vec<D,T>::len_sq() const
-{
-	return (real32)dot(*this);
-}
-
-template <uint32 D,typename T>
-real32 vec<D,T>::len_sq32() const
-{
-	return len_sq();
-}
-
-template <uint32 D,typename T>
-real32 vec<D,T>::len() const
-{
-	return (real32)sqrt((real64)len_sq32());
-}
-
-template <uint32 D,typename T>
-real32 vec<D,T>::len32() const
-{
-	return len();
-}
-
-template <uint32 D,typename T>
-real64 vec<D,T>::len_sq64() const
-{
-	return (real64)dot(*this);
-}
-
-template <uint32 D,typename T>
-real64 vec<D,T>::len64() const
-{
-	return (real64)sqrt(len_sq64());
+	return vec<D-1,T>(*this).dot(vec<D-1,T>(rhs))+e[D-1]*rhs.e[D-1];
 }
 
 template <uint32 D,typename T>
 vec<D,T> operator*(const T& scalar, const vec<D,T>& vector)
 {
-	vec<D,T> result={};
-	for (uint32 i=0;i<D;++i)
-	{
-		result.e[i]=scalar*vector.e[i];
-	}
-	return result;
+	return vec<D,T>(scalar*vec<D-1,T>(vector),scalar*vector.e[D-1]);
 }
 
 template <uint32 D,typename T>

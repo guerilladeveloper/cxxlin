@@ -5,56 +5,66 @@
 template <typename T>
 struct vec<3,T>
 {
+	static const uint32 DIM=3;
+
 	T x;
 	T y;
 	T z;
 
-	vec(const T& x,const T& y,const T& z);
+	explicit vec(const T elements[3]);
 	vec(const T& val);
 	vec();
+	vec(const T& x,const T& y,const T& z);
 	vec(const vec& other);
 	template <uint32 D>
 	vec(const vec<D,T>& other);
-	vec operator+(const vec& rhs);
-	vec operator-(const vec& rhs);
-	vec operator-();
-	vec operator*(const T& scalar);
-	vec operator/(const T& scalar);
-	bool32 operator==(const vec& rhs);
-	bool32 operator!=(const vec& rhs);
+
+	vec operator+(const vec& rhs) const;
+	vec operator-(const vec& rhs) const;
+	vec operator-() const;
+	vec operator*(const T& scalar) const;
+	vec operator/(const T& scalar) const;
+	bool32 operator==(const vec& rhs) const;
+	bool32 operator!=(const vec& rhs) const;
 	vec& operator=(const vec& rhs);
 	vec& operator-=(const vec& rhs);
 	vec& operator+=(const vec& rhs);
 	vec& operator*=(const T& scalar);
 	vec& operator/=(const T& scalar);
 
+	operator T() const;
+	operator T&();
 	T& operator[](uint32 index);
 	const T& operator[](uint32 index) const;
 
-	T dot(const vec& rhs);
-	vec cross(const vec& rhs);
-
-	real32 len_sq();
-	real32 len_sq32();
-	real32 len();
-	real32 len32();
-	real64 len_sq64();
-	real64 len64();
+	T dot(const vec& rhs) const;
+	vec cross(const vec& rhs) const;
 };
+
+template <typename T>
+static const vec<3,T> VEC3_ONE=vec<3,T>(T(1));
+template <typename T>
+static const vec<3,T> VEC3_XAXIS=vec<3,T>(T(1),T(0),T(0));
+template <typename T>
+static const vec<3,T> VEC3_YAXIS=vec<3,T>(T(0),T(1),T(0));
+template <typename T>
+static const vec<3,T> VEC3_ZAXIS=vec<3,T>(T(0),T(0),T(1));
 
 template <typename T>
 vec<3,T> operator*(const T& scalar,const vec<3,T>& vector);
 
 template <typename T>
-T dot(const vec<3,T>& lsh,const vec<3,T>& rhs);
+T dot(const vec<3,T>& lhs,const vec<3,T>& rhs);
 
 template <typename T>
-T cross(const vec<3,T>& lsh,const vec<3,T>& rhs);
+vec<3,T> cross(const vec<3,T>& lhs,const vec<3,T>& rhs);
 
 #include "cxxlin_vec3.inl"
 
 template <typename T>
 using vec3=vec<3,T>;
+
+typedef vec<3,real32> vec3f;
 
 #define _CXXLIN_VEC3_H_
 #endif

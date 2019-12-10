@@ -10,6 +10,7 @@ typedef float real32;
 typedef real32 r32;
 typedef double real64;
 typedef real64 r64;
+typedef uint64_t uint64;
 
 #ifdef CXXLIN_DEBUG
 #ifdef ASSERT

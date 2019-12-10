@@ -6,14 +6,17 @@
 template <uint32 D,typename T>
 struct vec
 {
+	static const uint32 DIM=D;
 	T e[D];
 
-	vec(const T elements[D]);
-	vec(const T& val);
+	explicit vec(const T elements[D]);
+	explicit vec(const T& val);
 	vec();
 	vec(const vec& other);
+	vec(const vec<D-1,T>& other, T last=T(1));
 	template <uint32 D2>
 	vec(const vec<D2,T>& other);
+
 	vec operator+(const vec& rhs) const;
 	vec operator-(const vec& rhs) const;
 	vec operator-() const;
@@ -31,13 +34,6 @@ struct vec
 	const T& operator[](uint32 index) const;
 
 	T dot(const vec& rhs) const;
-
-	real32 len_sq() const;
-	real32 len_sq32() const;
-	real32 len() const;
-	real32 len32() const;
-	real64 len_sq64() const;
-	real64 len64() const;
 };
 
 template <uint32 D, typename T>
