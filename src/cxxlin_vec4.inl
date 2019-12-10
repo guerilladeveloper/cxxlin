@@ -107,7 +107,7 @@ template <typename T>
 bool32 vec<4,T>::operator==(const vec<4,T>& rhs) const
 {
 	return this==&rhs||
-		(x==rhs.x&&y==rhs.y&&z==rhs.z,&&w==rhs.w);
+		(x==rhs.x&&y==rhs.y&&z==rhs.z&&w==rhs.w);
 }
 
 template <typename T>

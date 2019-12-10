@@ -3,9 +3,9 @@ SRC_DIR=$(BUILD_DIR)/src
 CC=g++
 RM=rm
 TEST_SRCS=cxxlin_test.cxx
-LIB_SRCS=cxxlin_vec2f.cxx cxxlin_vec2fptr.cxx
+LIB_SRCS=cxxlin_vec2f.cxx cxxlin_vec2fptr.cxx cxxlin_vec3f.cxx cxxlin_vec4f.cxx
 TEST_OBJS=cxxlin_test.o
-LIB_OBJS=cxxlin_vec2f.o cxxlin_vec2fptr.o
+LIB_OBJS=cxxlin_vec2f.o cxxlin_vec2fptr.o cxxlin_vec3f.o cxxlin_vec4f.o
 TEST_OUTPUT=cxxlin_test
 LIB_OUTPUT=libcxxlin.so
 DEFINE_FLAGS_DEBUG=-DDEBUG
@@ -22,7 +22,9 @@ CC_LIB_OBJS=$(addprefix $(BUILD_DIR)/,$(LIB_OBJS))
 CC_TEST_OUT=-o $(TEST_OUTPUT)
 CC_LIB_OUT=-shared -o $(LIB_OUTPUT)
 CLEAN_TEST_OBJS=$(CC_TEST_OBJS)
+CLEAN_LIB_OBJS=$(CC_LIB_OBJS)
 CLEAN_TEST_OUT=$(addprefix $(BUILD_DIR)/,$(TEST_OUTPUT))
+CLEAN_LIB_OUT=$(addprefix $(BUILD_DIR)/,$(LIB_OUTPUT))
 
 all: objs
 	$(CC) $(CC_TEST_OBJS) $(CC_TEST_OUT) $(TEST_LINKER_OPTIONS) 
@@ -43,7 +45,7 @@ libobjs:
 	$(CC) $(CC_LIB_FLAGS) $(CC_LIB_SRCS)
 
 clean:
-	-$(RM) $(CLEAN_TEST_OBJS)
+	-$(RM) $(CLEAN_TEST_OBJS) $(CLEAN_LIB_OBJS)
 
 cleanall: clean
-	-$(RM) $(CLEAN_TEST_OUT)
+	-$(RM) $(CLEAN_TEST_OUT) $(CLEAN_LIB_OUT)
