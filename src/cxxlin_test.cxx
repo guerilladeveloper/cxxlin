@@ -4,6 +4,15 @@
 
 int main(int argc,char* argv[])
 {
+	vec<5,real32> v5f;
+	v5f[0]=1.0f;
+	v5f[1]=1.0f;
+	v5f[2]=1.0f;
+	v5f[3]=1.0f;
+	v5f[4]=1.0f;
+
+	real32* buff=v5f.data();
+	printf("%f\n",buff[0]);
 	vec2f v0=VEC2_ONE<real32>;
 	vec2f v1=VEC2_XAXIS<real32>;
 	vec2f blended=lerp(v0,0.75f,v1);

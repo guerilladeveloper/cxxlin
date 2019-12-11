@@ -45,6 +45,8 @@ struct vec<3,T>
 	vec& normalize();
 	vec hadamard(const vec& rhs) const;
 	vec lerp(const T& t,const vec& b) const;
+	T* data() {return &x; }
+	const T* data() const {return &x;}
 };
 
 template <typename T>

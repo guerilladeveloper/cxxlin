@@ -33,6 +33,9 @@ struct vec
 	const T& operator[](uint32 index) const;
 
 	T dot(const vec& rhs) const;
+
+	T* data() { return e; }
+	const T* data() const {return e; }
 };
 
 template <uint32 D, typename T>
