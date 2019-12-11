@@ -203,6 +203,48 @@ T vec<3,T>::dot(const vec<3,T>& rhs) const
 }
 
 template <typename T>
+T vec<3,T>::len_sq() const
+{
+	return dot(*this);
+}
+
+template <typename T>
+T vec<3,T>::len() const
+{
+	return sqrt(len_sq());
+}
+
+template <typename T>
+vec<3,T> vec<3,T>::normal() const
+{
+	T l=len();
+	return vec<3,T>(x/l,y/l,z/l);
+}
+
+template <typename T>
+vec<3,T>& vec<3,T>::normalize()
+{
+	T l=len();
+	x/=l;
+	y/=l;
+	z/=l;
+	return *this;
+}
+
+template <typename T>
+vec<3,T> vec<3,T>::hadamard(const vec<3,T>& rhs) const
+{
+	return vec<3,T>(x*rhs.x,y*rhs.y,z*rhs.z);
+}
+
+template <typename T>
+vec<3,T> vec<3,T>::lerp(const T& t,const vec<3,T>& b) const
+{
+	vec<3,T> a=*this;
+	return t*(b-a)+a;
+}
+
+template <typename T>
 vec<3,T> vec<3,T>::cross(const vec<3,T>& rhs) const
 {
 	return vec<3,T>(
@@ -227,4 +269,34 @@ template <typename T>
 vec<3,T> cross(const vec<3,T>& lhs,const vec<3,T>& rhs)
 {
 	return lhs.cross(rhs);
+}
+
+template <typename T>
+T len_sq(const vec<3,T>& vector)
+{
+	return vector.len_sq();
+}
+
+template <typename T>
+T len(const vec<3,T>& vector)
+{
+	return vector.len();
+}
+
+template <typename T>
+vec<3,T> normal(const vec<3,T>& vector)
+{
+	return vector.normal();
+}
+
+template <typename T>
+vec<3,T>& normalize(vec<3,T>& vector)
+{
+	return vector.normalize();
+}
+
+template <typename T>
+vec<3,T> lerp(const vec<3,T>& a,const T& t,const vec<3,T>& b)
+{
+	return a.lerp(t,b);
 }

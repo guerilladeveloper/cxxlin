@@ -1,7 +1,6 @@
 #ifndef _CXXLIN_VEC_H_
 
-#include <cmath>
-#include "cxxlin_defines.h"
+#include "cxxlin_math.h"
 
 template <uint32 D,typename T>
 struct vec

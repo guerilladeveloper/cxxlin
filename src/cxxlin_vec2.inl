@@ -55,7 +55,7 @@ vec<2,T> vec<2,T>::operator+(const vec<2,T>& rhs) const
 template <typename T>
 vec<2,T> vec<2,T>::operator-(const vec<2,T>& rhs) const
 {
-	return vec<2,T>(x-rhs.x,y-rhs,y);
+	return vec<2,T>(x-rhs.x,y-rhs.y);
 }
 
 template <typename T>
@@ -177,6 +177,53 @@ T vec<2,T>::dot(const vec<2,T>& rhs) const
 }
 
 template <typename T>
+T vec<2,T>::len_sq() const
+{
+	return dot(*this);
+}
+
+template <typename T>
+T vec<2,T>::len() const
+{
+	return sqrt(len_sq());
+}
+
+template <typename T>
+vec<2,T> vec<2,T>::normal() const
+{
+	T l=len();
+	return *this/l;
+}
+
+template <typename T>
+vec<2,T>& vec<2,T>::normalize()
+{
+	T l=len();
+	x/=l;
+	y/=l;
+	return *this;
+}
+
+template <typename T>
+vec<2,T> vec<2,T>::perp() const
+{
+	return vec<2,T>(-y,x);
+}
+
+template <typename T>
+vec<2,T> vec<2,T>::hadamard(const vec<2,T>& rhs) const
+{
+	return vec<2,T>(x*rhs.x,y*rhs.y);
+}
+
+template <typename T>
+vec<2,T> vec<2,T>::lerp(const T& t,const vec<2,T>& b) const
+{
+	vec<2,T> a=*this;
+	return t*(b-a)+a;
+}
+
+template <typename T>
 vec<2,T> operator*(const T& scalar,const vec<2,T>& vector)
 {
 	return vec<2,T>(scalar*vector.x,scalar*vector.y);
@@ -186,4 +233,34 @@ template <typename T>
 T dot(const vec<2,T>& lhs,const vec<2,T>& rhs)
 {
 	return lhs.dot(rhs);
+}
+
+template <typename T>
+T len_sq(const vec<2,T>& vector)
+{
+	return vector.len_sq();
+}
+
+template <typename T>
+T len(const vec<2,T>& vector)
+{
+	return vector.len();
+}
+
+template <typename T>
+vec<2,T> perp(const vec<2,T>& vector)
+{
+	return vector.perp();
+}
+
+template <typename T>
+vec<2,T> hadamard(const vec<2,T>& lhs,const vec<2,T>& rhs)
+{
+	return lhs.hadamard(rhs);
+}
+
+template <typename T>
+vec<2,T> lerp(const vec<2,T>& a,const T& t,const vec<2,T>& b)
+{
+	return a.lerp(t,b);
 }

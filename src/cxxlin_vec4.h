@@ -36,7 +36,15 @@ struct vec<4,T>
 	T& operator[](uint32 index);
 	const T& operator[](uint32 index) const;
 
+	T len_sq() const;
+	T len() const;
+
+	vec normal() const;
+	vec& normalize();
+
 	T dot(const vec& rhs) const;
+	vec hadamard(const vec& rhs) const;
+	vec lerp(const T& t,const vec& b) const;
 };
 
 template <typename T>
@@ -56,6 +64,17 @@ vec<4,T> operator*(const T& scalar,const vec<4,T>& vector);
 template <typename T>
 T dot(const vec<4,T>& lhs,const vec<4,T>& rhs);
 
+template <typename T>
+T len_sq(const vec<4,T>& vector);
+
+template <typename T>
+T len(const vec<4,T>& vector);
+
+template <typename T>
+vec<4,T> hadamard(const vec<4,T>& lhs,vec<4,T>& rhs);
+
+template <typename T>
+vec<4,T> lerp(const vec<4,T>& a,const T& t,const vec<4,T>& b);
 
 #include "cxxlin_vec4.inl"
 

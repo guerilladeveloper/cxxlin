@@ -37,6 +37,14 @@ struct vec<3,T>
 
 	T dot(const vec& rhs) const;
 	vec cross(const vec& rhs) const;
+
+	T len_sq() const;
+	T len() const;
+
+	vec normal() const;
+	vec& normalize();
+	vec hadamard(const vec& rhs) const;
+	vec lerp(const T& t,const vec& b) const;
 };
 
 template <typename T>
@@ -56,6 +64,27 @@ T dot(const vec<3,T>& lhs,const vec<3,T>& rhs);
 
 template <typename T>
 vec<3,T> cross(const vec<3,T>& lhs,const vec<3,T>& rhs);
+
+template <typename T>
+T len_sq(const vec<2,T>& vector);
+
+template <typename T>
+T len(const vec<2,T>& vector);
+
+template <typename T>
+vec<2,T> normal(const vec<2,T>& vector);
+
+template <typename T>
+vec<2,T>& normalize(vec<2,T>& vector);
+
+template <typename T>
+vec<2,T> perp(const vec<2,T>& vector);
+
+template <typename T>
+vec<2,T> hadamard(const vec<2,T>& lhs,vec<2,T>& rhs);
+
+template <typename T>
+vec<2,T> lerp(const vec<2,T>& a,const T& t,const vec<2,T>& b);
 
 #include "cxxlin_vec3.inl"
 

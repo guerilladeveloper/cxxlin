@@ -230,6 +230,49 @@ T vec<4,T>::dot(const vec<4,T>& rhs) const
 }
 
 template <typename T>
+T vec<4,T>::len_sq() const
+{
+	return dot(*this);
+}
+
+template <typename T>
+T vec<4,T>::len() const
+{
+	return sqrt(len_sq());
+}
+
+template <typename T>
+vec<4,T> vec<4,T>::normal() const
+{
+	T l=len();
+	return vec<4,T>(x/l,y/l,z/l,w/l);
+}
+
+template <typename T>
+vec<4,T>& vec<4,T>::normalize()
+{
+	T l=len();
+	x/=l;
+	y/=l;
+	z/=l;
+	w/=l;
+	return *this;
+}
+
+template <typename T>
+vec<4,T> vec<4,T>::hadamard(const vec<4,T>& rhs) const
+{
+	return vec<4,T>(x*rhs.x,y*rhs.y,z*rhs.z,w*rhs.w);
+}
+
+template <typename T>
+vec<4,T> vec<4,T>::lerp(const T& t,const vec<4,T>& b) const
+{
+	vec<4,T> a=*this;
+	return t*(b-a)+a;
+}
+
+template <typename T>
 vec<4,T> operator*(const T& scalar,const vec<4,T>& vector)
 {
 	return vec<4,T>(scalar*vector.x,scalar*vector.y,
@@ -240,4 +283,27 @@ template <typename T>
 T dot(const vec<4,T>& lhs,const vec<4,T>& rhs)
 {
 	return lhs.dot(rhs);
+}
+
+template <typename T>
+T len_sq(const vec<4,T>& vector)
+{
+	return vector.len_sq();
+}
+template <typename T>
+T len(const vec<4,T>& vector)
+{
+	return vector.len();
+}
+
+template <typename T>
+vec<4,T> hadamard(const vec<4,T>& lhs,const vec<4,T>& rhs)
+{
+	return lhs.hadamard(rhs);
+}
+
+template <typename T>
+vec<4,T> lerp(const vec<4,T>& a,const T& t,const vec<4,T>& b)
+{
+	return a.lerp(t,b);
 }
