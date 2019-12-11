@@ -1,0 +1,8 @@
+#ifndef _CXXLIN_H_
+
+#define CXXLIN_VERSION_MAJOR 0
+#define CXXLIN_VERSION_MINOR 1
+#define CXXLIN_VERSION_MODIFIER 'a'
+
+#define _CXXLIN_H_
+#endif
