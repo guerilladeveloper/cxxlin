@@ -12,7 +12,7 @@ struct vec<4,T>
 	T z;
 	T w;
 
-	explicit vec(const T elements[4]);
+	vec(const T elements[4]);
 	explicit vec(const T& val);
 	vec();
 	vec(const T& x,const T& y,const T& z,const T& w);

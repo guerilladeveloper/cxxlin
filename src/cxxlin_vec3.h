@@ -11,7 +11,7 @@ struct vec<3,T>
 	T y;
 	T z;
 
-	explicit vec(const T elements[3]);
+	vec(const T elements[3]);
 	explicit vec(const T& val);
 	vec();
 	vec(const T& x,const T& y,const T& z);

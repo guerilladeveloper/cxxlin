@@ -8,7 +8,7 @@ struct vec
 	static const uint32 DIM=D;
 	T e[D];
 
-	explicit vec(const T elements[D]);
+	vec(const T elements[D]);
 	explicit vec(const T& val);
 	vec();
 	vec(const vec& other);

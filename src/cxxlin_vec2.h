@@ -10,7 +10,7 @@ struct vec<2,T>
 	T x;
 	T y;
 
-	explicit vec(const T elements[2]);
+	vec(const T elements[2]);
 	explicit vec(const T& val);
 	vec();
 	vec(const T& x,const T& y);
