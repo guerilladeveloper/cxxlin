@@ -6,6 +6,7 @@
 #include "cxxlin_vec2.h"
 #include "cxxlin_vec3.h"
 #include "cxxlin_vec4.h"
+#include "cxxlin_mat.h"
 
 #define _CXXLIN_H_
 #endif

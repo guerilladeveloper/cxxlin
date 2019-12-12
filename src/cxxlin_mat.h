@@ -17,15 +17,17 @@ struct mat
 	mat operator+(const mat& rhs) const;
 	mat operator-(const mat& rhs) const;
 	mat operator*(const T& scalar) const;
-	mat operator*(const mat& rhs) const;
+	template <uint32 M>
+	mat<C,M,T> operator*(const mat<R,M,T>& rhs) const;
 
 	mat& operator=(const mat& rhs);
 	mat& operator+=(const mat& rhs);
 	mat& operator-=(const mat& rhs);
 	mat& operator*=(const T& scalar);
-	mat& operator*=(const mat& rhs);
+	template <uint32 M>
+	mat<C,M,T>& operator*=(const mat<R,M,T>& rhs);
 
-	vec<R,T> transform(const vec<C,T>& vector);
+	vec<R,T> transform(const vec<C,T>& vector) const;
 
 	T* data() { return e; }
 	const T* data() const { return e; }

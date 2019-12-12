@@ -38,5 +38,30 @@ int main(int argc,char* argv[])
 	vec4f diff1=v2-v3;
 	vec4f normal1=v2.normal();
 	vec4f blended2=lerp(v2,0.21f,v3);
+
+	mat<2,2,real32> mat0;
+	mat0.get(0,0)=1.0f;
+	mat0.get(0,1)=0.0f;
+	mat0.get(1,0)=0.0f;
+	mat0.get(1,1)=1.0f;
+	mat<2,2,real32> mat1;
+	mat1.get(0,0)=1.0f;
+	mat1.get(0,1)=0.0f;
+	mat1.get(1,0)=0.0f;
+	mat1.get(1,1)=1.0f;
+	mat<2,2,real32> mat2=mat0*mat1;
+	real32 angle=PI32/4.0f;
+	mat2.get(0,0)=cosine(angle);
+	mat2.get(0,1)=sine(angle);
+	mat2.get(1,0)=-sine(angle);
+	mat2.get(1,1)=cosine(angle);
+
+	vec<2,real32> pos=VEC2_ONE<real32>;
+	printf("%f,%f\n",pos.x,pos.y);
+	pos=(pos*mat2).normalize();
+	printf("( %f, %f )\n( %f, %f )\n",mat2.get(0,0),mat2.get(1,0),
+			mat2.get(0,1),mat2.get(1,1));
+
+	printf("%f,%f\n",pos.x,pos.y);
 	return 0;
 }
