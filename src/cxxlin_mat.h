@@ -18,13 +18,32 @@ struct mat
 	mat operator-(const mat& rhs) const;
 	mat operator*(const T& scalar) const;
 	mat operator*(const mat& rhs) const;
+
 	mat& operator=(const mat& rhs);
 	mat& operator+=(const mat& rhs);
 	mat& operator-=(const mat& rhs);
 	mat& operator*=(const T& scalar);
 	mat& operator*=(const mat& rhs);
 
+	vec<R,T> transform(const vec<C,T>& vector);
+
+	T* data() { return e; }
+	const T* data() const { return e; }
+
+	mat<R,C,T> transpose() const;
+
+	T& get(uint32 column,uint32 row);
+	const T& get(uint32 column,uint32 row) const;
+	vec<R,T> get_column(uint32 index) const;
+	vec<C,T> get_row(uint32 index) const;
+	mat& set_column(uint32 column,const vec<R,T>& val);
+	mat& set_row(uint32 row,const vec<C,T>& val);
 };
+
+template <uint32 C,uint32 R,typename T>
+vec<R,T> operator*(const vec<C,T>& vector,const mat<C,R,T>& matrix);
+
+#include "cxxlin_mat.inl"
 
 #define _CXXLIN_MAT_H_
 #endif

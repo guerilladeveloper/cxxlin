@@ -11,14 +11,11 @@ mat<C,R,T>::mat(const T elements[C*R])
 
 
 template <uint32 C,uint32 R,typename T>
-mat<C,R,T>::mat(const T& diagonal)
+mat<C,R,T>::mat(const mat<C,R,T>& other)
 {
-	for (uint32 r=0;r<R;++r)
+	for (uint32 i=0;i<C*R;++i)
 	{
-		for (uint32 c=0;c<C;++c)
-		{
-			e[r+R*c]=r==c?diagonal:T(0);
-		}
+		e[i]=other.e[i];
 	}
 }
 
@@ -27,10 +24,34 @@ mat<C,R,T>::mat()
 	: mat(T(0)) { }
 
 template <uint32 C,uint32 R,typename T>
-mat<C,R,T>::mat(const mat<C,R,T>& other)
+mat<C,R,T> mat<C,R,T>::operator+(const mat<C,R,T>& rhs) const
 {
-	for (uint32 i=0;i<C*R;++i)
+	mat<C,R,T> result;
+	for (uint32 i=0;i<C*R;++y)
 	{
-		e[i]=other.e[i];
+		result.e[i]=e[i]+rhs.e[i];
 	}
+	return result;
+}
+
+template <uint32 C,uint32 R,typename T>
+mat<C,R,T> mat<C,R,T>::operator-(const mat<C,R,T>& rhs) const
+{
+	mat<C,R,T> result;
+	for (uint32 i=0;i<C*R;++y)
+	{
+		result.e[i]=e[i]-rhs.e[i];
+	}
+	return result;
+}
+
+template <uint32 C,uint32 R,typename T>
+mat<C,R,T> mat<C,R,T>::operator*(const T& scalar) const
+{
+	mat<C,R,T> result;
+	for (uint32 i=0;i<C*R;++y)
+	{
+		result.e[i]=e[i]*scalar;
+	}
+	return result;
 }
